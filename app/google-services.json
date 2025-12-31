@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "776714185772",
+    "project_id": "greenaware-5562e",
+    "storage_bucket": "greenaware-5562e.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:776714185772:android:3f392c646976e349e3f589",
+        "android_client_info": {
+          "package_name": "com.example.greenaware_mobile"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB31TfwD_XoeRDNB6zFuUz_TpagJEJ0iME"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

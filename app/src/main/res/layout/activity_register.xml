@@ -5,10 +5,11 @@
     android:padding="24dp">
 
     <LinearLayout
+        android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:layout_height="wrap_content">
 
+        <!-- Full Name -->
         <EditText
             android:id="@+id/editFullName"
             android:layout_width="match_parent"
@@ -17,6 +18,7 @@
             android:inputType="textPersonName"
             android:layout_marginBottom="16dp"/>
 
+        <!-- Username -->
         <EditText
             android:id="@+id/editUsername"
             android:layout_width="match_parent"
@@ -25,6 +27,7 @@
             android:inputType="text"
             android:layout_marginBottom="16dp"/>
 
+        <!-- Email -->
         <EditText
             android:id="@+id/editEmail"
             android:layout_width="match_parent"
@@ -33,14 +36,16 @@
             android:inputType="textEmailAddress"
             android:layout_marginBottom="16dp"/>
 
+        <!-- Phone -->
         <EditText
             android:id="@+id/editPhone"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Phone"
+            android:hint="Phone Number"
             android:inputType="phone"
             android:layout_marginBottom="16dp"/>
 
+        <!-- Password -->
         <EditText
             android:id="@+id/editPassword"
             android:layout_width="match_parent"
@@ -49,11 +54,12 @@
             android:inputType="textPassword"
             android:layout_marginBottom="16dp"/>
 
+        <!-- Role Selection -->
         <RadioGroup
             android:id="@+id/radioRole"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
             android:orientation="horizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_marginBottom="16dp">
 
             <RadioButton
@@ -70,15 +76,15 @@
                 android:text="Worker"/>
         </RadioGroup>
 
-        <EditText
-            android:id="@+id/editSpecialization"
+        <!-- Specialization Spinner (for Worker) -->
+        <Spinner
+            android:id="@+id/spinnerSpecialization"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Specialization (Workers only)"
-            android:inputType="text"
-            android:visibility="gone"
+            android:prompt="@string/select_specialization"
             android:layout_marginBottom="16dp"/>
 
+        <!-- Register Button -->
         <Button
             android:id="@+id/btnRegister"
             android:layout_width="match_parent"

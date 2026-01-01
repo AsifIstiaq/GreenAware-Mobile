@@ -9,6 +9,7 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.security.MessageDigest;
@@ -82,13 +83,26 @@ public class LoginActivity extends AppCompatActivity {
 
         db.collection("workers")
                 .whereEqualTo("username", username)
-                .whereEqualTo("password", password) // plain password for workers
+                .whereEqualTo("password", password)
                 .get()
                 .addOnSuccessListener(snapshot -> {
                     if (snapshot.isEmpty()) {
                         toast("Invalid worker credentials");
                         return;
                     }
+
+                    DocumentSnapshot doc = snapshot.getDocuments().get(0);
+
+                    String workerId = doc.getString("id");
+                    String name = doc.getString("name");
+                    String phone = doc.getString("phone");
+                    String email = doc.getString("email");
+
+                    int workerIdHash = stringHashCode(workerId);
+                    String workerIdStr = String.valueOf(workerIdHash);
+
+                    WorkerSession.getInstance()
+                            .setWorker(workerIdStr, name, phone, email);
 
                     Intent intent = new Intent(this, WorkerDashboardActivity.class);
                     intent.putExtra("username", username);
@@ -116,5 +130,14 @@ public class LoginActivity extends AppCompatActivity {
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
+    }
+
+    public static int stringHashCode(String s) {
+        int h = 0;
+        int len = s.length();
+        for (int i = 0; i < len; i++) {
+            h = 31 * h + s.charAt(i);
+        }
+        return h;
     }
 }

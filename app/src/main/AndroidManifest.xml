@@ -12,6 +12,12 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.GreenAwareMobile">
         <activity
+            android:name=".SubmitProgressActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ActionDetailsActivity"
+            android:exported="false" />
+        <activity
             android:name=".WorkerDashboardActivity"
             android:exported="false" />
         <activity

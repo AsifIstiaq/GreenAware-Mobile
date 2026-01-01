@@ -14,12 +14,22 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.storage.FirebaseStorage;
-import com.google.firebase.storage.StorageReference;
+import org.json.JSONObject;
 
+import java.io.InputStream;
 import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.Map;
+
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.MediaType;
+import okhttp3.MultipartBody;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.RequestBody;
+import okhttp3.Response;
+
 
 public class SubmitProgressActivity extends AppCompatActivity {
 
@@ -34,7 +44,9 @@ public class SubmitProgressActivity extends AppCompatActivity {
     private String actionId;
 
     private FirebaseFirestore db;
-    private StorageReference storageRef;
+
+    private final String CLOUD_NAME = "dabmwyr02";
+    private final String UPLOAD_PRESET = "mobile_upload";
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -48,7 +60,6 @@ public class SubmitProgressActivity extends AppCompatActivity {
         btnSubmit = findViewById(R.id.btnSubmitProgress);
 
         db = FirebaseFirestore.getInstance();
-        storageRef = FirebaseStorage.getInstance().getReference();
 
         actionId = getIntent().getStringExtra("ACTION_ID");
 
@@ -83,7 +94,6 @@ public class SubmitProgressActivity extends AppCompatActivity {
     }
 
     private void submitProgress() {
-
         if (imageUri == null) {
             toast("Please select an image");
             return;
@@ -97,17 +107,61 @@ public class SubmitProgressActivity extends AppCompatActivity {
             return;
         }
 
-        String fileName = "progress_photos/" + System.currentTimeMillis() + ".jpg";
-        StorageReference imgRef = storageRef.child(fileName);
-
-        imgRef.putFile(imageUri)
-                .addOnSuccessListener(task ->
-                        imgRef.getDownloadUrl().addOnSuccessListener(uri ->
-                                saveProgress(uri.toString(), status, description)))
-                .addOnFailureListener(e -> toast(e.getMessage()));
+        uploadToCloudinary(imageUri, description, status);
     }
 
-    private void saveProgress(String photoPath, String status, String description) {
+    private void uploadToCloudinary(Uri imageUri, String description, String status) {
+        try {
+            InputStream inputStream = getContentResolver().openInputStream(imageUri);
+            byte[] bytes = new byte[inputStream.available()];
+            inputStream.read(bytes);
+
+            OkHttpClient client = new OkHttpClient();
+
+            RequestBody requestBody = new MultipartBody.Builder()
+                    .setType(MultipartBody.FORM)
+                    .addFormDataPart("file", "image.jpg",
+                            RequestBody.create(bytes, MediaType.parse("image/*")))
+                    .addFormDataPart("upload_preset", UPLOAD_PRESET)
+                    .build();
+
+            Request request = new Request.Builder()
+                    .url("https://api.cloudinary.com/v1_1/" + CLOUD_NAME + "/image/upload")
+                    .post(requestBody)
+                    .build();
+
+            client.newCall(request).enqueue(new Callback() {
+                @Override
+                public void onFailure(Call call, java.io.IOException e) {
+                    runOnUiThread(() -> toast("Upload failed: " + e.getMessage()));
+                }
+
+                @Override
+                public void onResponse(Call call, Response response) throws java.io.IOException {
+                    if (!response.isSuccessful()) {
+                        runOnUiThread(() -> toast("Upload failed: " + response.message()));
+                        return;
+                    }
+
+                    String resp = response.body().string();
+                    try {
+                        JSONObject json = new JSONObject(resp);
+                        String imageUrl = json.getString("secure_url"); // direct URL
+
+                        runOnUiThread(() -> saveProgress(imageUrl, status, description));
+
+                    } catch (Exception e) {
+                        runOnUiThread(() -> toast("Upload parse error: " + e.getMessage()));
+                    }
+                }
+            });
+
+        } catch (Exception e) {
+            toast(e.getMessage());
+        }
+    }
+
+    private void saveProgress(String photoUrl, String status, String description) {
 
         WorkerSession session = WorkerSession.getInstance();
 
@@ -115,7 +169,7 @@ public class SubmitProgressActivity extends AppCompatActivity {
         progress.put("action_id", actionId);
         progress.put("description", description);
         progress.put("status", status);
-        progress.put("photo_path", photoPath);
+        progress.put("photo_path", photoUrl);
         progress.put("worker_id", session.getWorkerId());
         progress.put("worker_name", session.getName());
         progress.put("worker_phone", session.getPhone());

@@ -16,6 +16,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.google.firebase.firestore.FirebaseFirestore;
 import org.json.JSONObject;
 
+import java.io.File;
 import java.io.InputStream;
 import java.time.LocalDateTime;
 import java.util.HashMap;
@@ -34,11 +35,13 @@ import okhttp3.Response;
 public class SubmitProgressActivity extends AppCompatActivity {
 
     private static final int PICK_IMAGE = 101;
+    private static final int TAKE_IMAGE = 102;
+    private Uri cameraImageUri;
 
     private Spinner spinnerStatus;
     private EditText editDescription;
     private ImageView imgPreview;
-    private Button btnChooseImage, btnSubmit;
+    private Button btnChooseImage, btnSubmit, btnTakePhoto;
 
     private Uri imageUri;
     private String actionId;
@@ -57,6 +60,7 @@ public class SubmitProgressActivity extends AppCompatActivity {
         editDescription = findViewById(R.id.editDescription);
         imgPreview = findViewById(R.id.imgPreview);
         btnChooseImage = findViewById(R.id.btnChooseImage);
+        btnTakePhoto = findViewById(R.id.btnTakePhoto);
         btnSubmit = findViewById(R.id.btnSubmitProgress);
 
         db = FirebaseFirestore.getInstance();
@@ -66,6 +70,7 @@ public class SubmitProgressActivity extends AppCompatActivity {
         setupSpinner();
 
         btnChooseImage.setOnClickListener(v -> chooseImage());
+        btnTakePhoto.setOnClickListener(v -> takeImage());
         btnSubmit.setOnClickListener(v -> submitProgress());
     }
 
@@ -83,13 +88,47 @@ public class SubmitProgressActivity extends AppCompatActivity {
         startActivityForResult(intent, PICK_IMAGE);
     }
 
+    private void takeImage() {
+        Intent intent = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
+
+        if (intent.resolveActivity(getPackageManager()) != null) {
+            try {
+                File imageFile = File.createTempFile(
+                        "camera_",
+                        ".jpg",
+                        getCacheDir()
+                );
+
+                cameraImageUri = androidx.core.content.FileProvider.getUriForFile(
+                        this,
+                        getPackageName() + ".fileprovider",
+                        imageFile
+                );
+
+                intent.putExtra(android.provider.MediaStore.EXTRA_OUTPUT, cameraImageUri);
+                startActivityForResult(intent, TAKE_IMAGE);
+
+            } catch (Exception e) {
+                toast("Camera error: " + e.getMessage());
+            }
+        }
+    }
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        if (requestCode == PICK_IMAGE && resultCode == RESULT_OK && data != null) {
-            imageUri = data.getData();
-            imgPreview.setImageURI(imageUri);
+        if (resultCode == RESULT_OK) {
+
+            if (requestCode == PICK_IMAGE && data != null) {
+                imageUri = data.getData();
+                imgPreview.setImageURI(imageUri);
+            }
+
+            if (requestCode == TAKE_IMAGE) {
+                imageUri = cameraImageUri;
+                imgPreview.setImageURI(imageUri);
+            }
         }
     }
 
@@ -165,19 +204,35 @@ public class SubmitProgressActivity extends AppCompatActivity {
 
         WorkerSession session = WorkerSession.getInstance();
 
-        Map<String, Object> progress = new HashMap<>();
-        progress.put("action_id", actionId);
-        progress.put("description", description);
-        progress.put("status", status);
-        progress.put("photo_path", photoUrl);
-        progress.put("worker_id", session.getWorkerId());
-        progress.put("worker_name", session.getName());
-        progress.put("worker_phone", session.getPhone());
-        progress.put("submitted_at", LocalDateTime.now().toString());
+        db.collection("actions")
+                .document(actionId)
+                .get()
+                .addOnSuccessListener(actionDoc -> {
 
-        db.collection("work_progress")
-                .add(progress)
-                .addOnSuccessListener(doc -> updateActionStatus(status))
+                    if (!actionDoc.exists()) {
+                        toast("Action not found");
+                        return;
+                    }
+
+                    String location = actionDoc.getString("location");
+
+                    Map<String, Object> progress = new HashMap<>();
+                    progress.put("action_id", actionId);
+                    progress.put("location", location); // ✅ IMPORTANT
+                    progress.put("description", description);
+                    progress.put("status", status);
+                    progress.put("photo_path", photoUrl);
+                    progress.put("worker_id", session.getWorkerId());
+                    progress.put("worker_name", session.getName());
+                    progress.put("worker_phone", session.getPhone());
+                    progress.put("submitted_at", LocalDateTime.now().toString());
+
+                    db.collection("work_progress")
+                            .add(progress)
+                            .addOnSuccessListener(doc -> updateActionStatus(status))
+                            .addOnFailureListener(e -> toast(e.getMessage()));
+
+                })
                 .addOnFailureListener(e -> toast(e.getMessage()));
     }
 

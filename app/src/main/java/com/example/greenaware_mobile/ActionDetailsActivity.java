@@ -14,8 +14,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 
 public class ActionDetailsActivity extends AppCompatActivity {
 
-    private TextView txtLocation, txtDescription, txtDeadline, txtStatus,
-            txtWorkerName, txtCreatedAt, txtCompletedDate, txtResolution;
+    private TextView txtLocation, txtDescription, txtDeadline, txtStatus;
 
     private Button btnSubmitProgress;
 
@@ -31,10 +30,6 @@ public class ActionDetailsActivity extends AppCompatActivity {
         txtDescription = findViewById(R.id.txtDescription);
         txtDeadline = findViewById(R.id.txtDeadline);
         txtStatus = findViewById(R.id.txtStatus);
-        txtWorkerName = findViewById(R.id.txtWorkerName);
-        txtCreatedAt = findViewById(R.id.txtCreatedAt);
-        txtCompletedDate = findViewById(R.id.txtCompletedDate);
-        txtResolution = findViewById(R.id.txtResolution);
         btnSubmitProgress = findViewById(R.id.btnSubmitProgress);
 
         db = FirebaseFirestore.getInstance();
@@ -78,14 +73,5 @@ public class ActionDetailsActivity extends AppCompatActivity {
         txtDescription.setText(doc.getString("action_note"));
         txtDeadline.setText(doc.getString("deadline"));
         txtStatus.setText(doc.getString("status"));
-        txtWorkerName.setText(doc.getString("worker_name"));
-        txtCreatedAt.setText(doc.getString("created_at"));
-
-        String completedDate = doc.getString("completed_date");
-        txtCompletedDate.setText(
-                completedDate == null ? "Not completed yet" : completedDate
-        );
-
-        txtResolution.setText(doc.getString("resolution_details"));
     }
 }

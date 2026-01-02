@@ -3,71 +3,99 @@ package com.example.greenaware_mobile;
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
-import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QuerySnapshot;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class UserDashboardActivity extends AppCompatActivity {
 
-    private TextView tvWelcome, tvFullName, tvUsername, tvEmail, tvPhone;
-    private Button btnLogout;
+    private RecyclerView recyclerView;
+    private Button btnAddReport;
+    private UserReportAdapter adapter;
+    private List<ReportModel> reportList;
+
     private FirebaseFirestore db;
 
     @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_dashboard);
 
-        tvWelcome = findViewById(R.id.tvWelcome);
-        tvFullName = findViewById(R.id.tvFullName);
-        tvUsername = findViewById(R.id.tvUsername);
-        tvEmail = findViewById(R.id.tvEmail);
-        tvPhone = findViewById(R.id.tvPhone);
-        btnLogout = findViewById(R.id.btnLogout);
+        recyclerView = findViewById(R.id.recyclerReports);
+        btnAddReport = findViewById(R.id.btnAddReport);
 
         db = FirebaseFirestore.getInstance();
+        reportList = new ArrayList<>();
 
-        String username = getIntent().getStringExtra("username");
-        if (username == null) username = "";
+        adapter = new UserReportAdapter(this, reportList);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        recyclerView.setAdapter(adapter);
 
-        loadUserData(username);
-
-        btnLogout.setOnClickListener(v -> {
-            startActivity(new Intent(UserDashboardActivity.this, LoginActivity.class));
-            finish();
+        btnAddReport.setOnClickListener(v -> {
+            startActivity(new Intent(UserDashboardActivity.this, AddReportActivity.class));
         });
+
+        fetchReports();
     }
 
-    private void loadUserData(String username) {
-        db.collection("users")
-                .whereEqualTo("username", username)
+    private void fetchReports() {
+        String userId = UserSession.getInstance().getUserId();
+
+        db.collection("reports")
+                .whereEqualTo("user_id", userId)
                 .get()
-                .addOnSuccessListener(querySnapshot -> {
-                    List<DocumentSnapshot> documents = querySnapshot.getDocuments();
-                    if (documents.isEmpty()) {
-                        Toast.makeText(this, "User data not found", Toast.LENGTH_SHORT).show();
-                        return;
-                    }
+                .addOnSuccessListener(this::onReportsFetched)
+                .addOnFailureListener(e -> toast("Failed to load reports: " + e.getMessage()));
+    }
 
-                    DocumentSnapshot doc = documents.get(0);
+    private void onReportsFetched(QuerySnapshot snapshots) {
+        reportList.clear();
 
-                    String fullName = doc.getString("full_name");
-                    String email = doc.getString("email");
-                    String phone = doc.getString("phone");
+        for (DocumentSnapshot doc : snapshots) {
 
-                    tvWelcome.setText("Welcome, " + fullName);
-                    tvFullName.setText(fullName);
-                    tvUsername.setText(username);
-                    tvEmail.setText(email);
-                    tvPhone.setText(phone);
-                })
-                .addOnFailureListener(e -> Toast.makeText(this, "Failed to load user data: " + e.getMessage(), Toast.LENGTH_LONG).show());
+            String docId = doc.getId();
+
+            String category = doc.contains("category_name")
+                    ? doc.getString("category_name")
+                    : "Unknown";
+
+            String location = doc.contains("location")
+                    ? doc.getString("location")
+                    : "Unknown";
+
+            String status = doc.contains("status")
+                    ? doc.getString("status")
+                    : "PENDING";
+
+            ReportModel model = new ReportModel(
+                    docId,
+                    category,
+                    location,
+                    status
+            );
+
+            reportList.add(model);
+        }
+
+        adapter.notifyDataSetChanged();
+    }
+
+    private void toast(String msg) {
+        Toast.makeText(this, msg, Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        fetchReports();
     }
 }

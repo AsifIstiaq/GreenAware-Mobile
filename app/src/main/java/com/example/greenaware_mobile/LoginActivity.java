@@ -64,6 +64,14 @@ public class LoginActivity extends AppCompatActivity {
                         return;
                     }
 
+                    DocumentSnapshot doc = snapshot.getDocuments().get(0);
+
+                    String userId = doc.getString("id");
+                    String name = doc.getString("full_name");
+                    String email = doc.getString("email");
+
+                    UserSession.getInstance().setUser(userId, name, email);
+
                     Intent intent = new Intent(this, UserDashboardActivity.class);
                     intent.putExtra("username", username);
                     startActivity(intent);

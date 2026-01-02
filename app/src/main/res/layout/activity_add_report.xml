@@ -1,0 +1,28 @@
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:padding="16dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <Spinner android:id="@+id/spinnerCategory" android:layout_width="match_parent" android:layout_height="wrap_content"/>
+        <EditText android:id="@+id/editLocation" android:hint="Location" android:layout_width="match_parent" android:layout_height="wrap_content"/>
+        <EditText android:id="@+id/editDateObserved" android:hint="Date Observed" android:focusable="false" android:layout_width="match_parent" android:layout_height="wrap_content"/>
+        <Spinner android:id="@+id/spinnerSeverity" android:layout_width="match_parent" android:layout_height="wrap_content"/>
+        <EditText android:id="@+id/editDescription" android:hint="Description" android:layout_width="match_parent" android:layout_height="wrap_content"/>
+        <EditText android:id="@+id/editName" android:hint="Your Name" android:enabled="false" android:layout_width="match_parent" android:layout_height="wrap_content"/>
+        <EditText android:id="@+id/editEmail" android:hint="Your Email" android:enabled="false" android:layout_width="match_parent" android:layout_height="wrap_content"/>
+        <ImageView android:id="@+id/imgPreview" android:layout_width="match_parent" android:layout_height="200dp" android:scaleType="centerCrop"/>
+        <Button
+            android:id="@+id/btnTakePhoto"
+            android:text="Take Photo"
+            android:layout_marginTop="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+        <Button android:id="@+id/btnChooseImage" android:text="Choose Image" android:layout_width="match_parent" android:layout_height="wrap_content"/>
+        <Button android:id="@+id/btnSubmitReport" android:text="Submit Report" android:layout_width="match_parent" android:layout_height="wrap_content"/>
+    </LinearLayout>
+</ScrollView>

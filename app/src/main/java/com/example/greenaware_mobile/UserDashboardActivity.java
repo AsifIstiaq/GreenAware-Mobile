@@ -14,7 +14,9 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class UserDashboardActivity extends AppCompatActivity {
 
@@ -24,6 +26,7 @@ public class UserDashboardActivity extends AppCompatActivity {
     private List<ReportModel> reportList;
 
     private FirebaseFirestore db;
+    private Map<String, String> lastStatusMap = new HashMap<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,6 +37,57 @@ public class UserDashboardActivity extends AppCompatActivity {
         btnAddReport = findViewById(R.id.btnAddReport);
 
         db = FirebaseFirestore.getInstance();
+        String userId = UserSession.getInstance().getUserId();
+
+        db.collection("reports")
+                .whereEqualTo("user_id", userId)
+                .addSnapshotListener((snapshots, e) -> {
+                    if (snapshots == null) return;
+
+                    for (DocumentSnapshot doc : snapshots.getDocuments()) {
+                        String reportId = doc.getId();
+                        String newStatus = doc.getString("status");
+                        String lastStatus = lastStatusMap.get(reportId);
+
+                        String location = doc.getString("location");
+                        String dateReported = doc.getString("date_reported");
+
+                        if (lastStatus != null && !lastStatus.equals(newStatus)) {
+                            String message = "";
+
+                            if (lastStatus.equals("PENDING") && newStatus.equals("IN_PROGRESS")) {
+                                message = "Your report at " + location + " reported on " + dateReported + " is now in progress.";
+                            } else if (lastStatus.equals("IN_PROGRESS") && newStatus.equals("RESOLVED")) {
+                                message = "Your report at " + location + " reported on " + dateReported + " has been resolved.";
+                            }
+
+                            if (!message.isEmpty()) {
+                                NotificationHelper.showNotification(
+                                        getApplicationContext(),
+                                        "Report Update",
+                                        message
+                                );
+                            }
+
+//                            if (lastStatus.equals("PENDING") && newStatus.equals("IN_PROGRESS")) {
+//                                NotificationHelper.showNotification(
+//                                        getApplicationContext(),
+//                                        "Report Update",
+//                                        "Your submitted report is in progress."
+//                                );
+//                            } else if (lastStatus.equals("IN_PROGRESS") && newStatus.equals("RESOLVED")) {
+//                                NotificationHelper.showNotification(
+//                                        getApplicationContext(),
+//                                        "Report Update",
+//                                        "Your submitted report is resolved."
+//                                );
+//                            }
+                        }
+
+                        lastStatusMap.put(reportId, newStatus);
+                    }
+                });
+
         reportList = new ArrayList<>();
 
         adapter = new UserReportAdapter(this, reportList);

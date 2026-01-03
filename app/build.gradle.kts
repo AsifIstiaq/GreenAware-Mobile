@@ -51,4 +51,7 @@ dependencies {
     implementation("com.squareup.okhttp3:okhttp:4.11.0")
     implementation("com.google.code.gson:gson:2.10.1")
     implementation("com.github.bumptech.glide:glide:4.15.1")
+    implementation("com.google.firebase:firebase-firestore:24.6.1")
+    implementation("com.google.firebase:firebase-messaging:23.2.0")
+    implementation("androidx.core:core-ktx:1.12.0")
 }

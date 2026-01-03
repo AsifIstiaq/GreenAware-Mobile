@@ -68,20 +68,6 @@ public class UserDashboardActivity extends AppCompatActivity {
                                         message
                                 );
                             }
-
-//                            if (lastStatus.equals("PENDING") && newStatus.equals("IN_PROGRESS")) {
-//                                NotificationHelper.showNotification(
-//                                        getApplicationContext(),
-//                                        "Report Update",
-//                                        "Your submitted report is in progress."
-//                                );
-//                            } else if (lastStatus.equals("IN_PROGRESS") && newStatus.equals("RESOLVED")) {
-//                                NotificationHelper.showNotification(
-//                                        getApplicationContext(),
-//                                        "Report Update",
-//                                        "Your submitted report is resolved."
-//                                );
-//                            }
                         }
 
                         lastStatusMap.put(reportId, newStatus);

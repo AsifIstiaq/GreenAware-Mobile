@@ -143,6 +143,6 @@ public class ReportDetailsActivity extends AppCompatActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        if (reportListener != null) reportListener.remove(); // stop listening
+        if (reportListener != null) reportListener.remove();
     }
 }

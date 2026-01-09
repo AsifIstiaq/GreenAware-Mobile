@@ -87,14 +87,6 @@ public class AddReportActivity extends AppCompatActivity {
         btnSubmitReport.setOnClickListener(v -> submitReport());
     }
 
-//    private void setupSpinners() {
-//        String[] categories = {"Select Category", "Air pollution", "Noise pollution", "Water pollution"};
-//        spinnerCategory.setAdapter(new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, categories));
-//
-//        String[] severities = {"Select Severity", "LOW", "MEDIUM", "HIGH"};
-//        spinnerSeverity.setAdapter(new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, severities));
-//    }
-
     private void setupSpinners() {
 
         String[] categories = {
@@ -106,7 +98,7 @@ public class AddReportActivity extends AppCompatActivity {
 
         ArrayAdapter<String> categoryAdapter = new ArrayAdapter<>(
                 this,
-                R.layout.spinner_item_green,
+                R.layout.spinner_item_black,
                 categories
         );
         categoryAdapter.setDropDownViewResource(R.layout.spinner_dropdown_item_green);
@@ -122,7 +114,7 @@ public class AddReportActivity extends AppCompatActivity {
 
         ArrayAdapter<String> severityAdapter = new ArrayAdapter<>(
                 this,
-                R.layout.spinner_item_green,
+                R.layout.spinner_item_black,
                 severities
         );
         severityAdapter.setDropDownViewResource(R.layout.spinner_dropdown_item_green);

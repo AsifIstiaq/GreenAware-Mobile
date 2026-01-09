@@ -94,14 +94,14 @@ private void setupSpinner() {
         @Override
         public View getView(int position, View convertView, ViewGroup parent) {
             TextView view = (TextView) super.getView(position, convertView, parent);
-            view.setTextColor(Color.parseColor("#2E7D32"));
+            view.setTextColor(Color.parseColor("#555555"));
             return view;
         }
 
         @Override
         public View getDropDownView(int position, View convertView, ViewGroup parent) {
             TextView view = (TextView) super.getDropDownView(position, convertView, parent);
-            view.setTextColor(Color.parseColor("#2E7D32"));
+            view.setTextColor(Color.parseColor("#555555"));
             view.setPadding(24, 24, 24, 24);
             return view;
         }

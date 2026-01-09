@@ -50,11 +50,11 @@
 
         <EditText
             android:id="@+id/editDescription"
-            android:minLines="3"
             android:gravity="top"
             android:backgroundTint="#2E7D32"
-            android:textColor="#2E7D32"
-            android:textColorHint="#2E7D32"
+            android:textColor="#555555"
+            android:textColorHint="#888888"
+            android:hint="Description"
             android:padding="12dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

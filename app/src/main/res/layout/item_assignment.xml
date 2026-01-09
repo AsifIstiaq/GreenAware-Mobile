@@ -19,7 +19,7 @@
             android:id="@+id/txtLocation"
             android:textStyle="bold"
             android:textSize="16sp"
-            android:textColor="#2E7D32"
+            android:textColor="#555555"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
 

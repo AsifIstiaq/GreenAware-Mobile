@@ -3,7 +3,14 @@
     <style name="Base.Theme.GreenAwareMobile" parent="Theme.Material3.DayNight.NoActionBar">
         <!-- Customize your light theme here. -->
         <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
+        <item name="materialCalendarTheme">@style/GreenCalendarTheme</item>
     </style>
 
+    <style name="GreenCalendarTheme" parent="ThemeOverlay.Material3.MaterialCalendar">
+        <item name="colorPrimary">#2E7D32</item>
+        <item name="colorOnPrimary">#FFFFFF</item>
+        <item name="colorSurface">#FFFFFF</item>
+        <item name="colorOnSurface">#2E7D32</item>
+    </style>
     <style name="Theme.GreenAwareMobile" parent="Base.Theme.GreenAwareMobile" />
 </resources>

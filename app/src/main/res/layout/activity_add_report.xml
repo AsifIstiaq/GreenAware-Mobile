@@ -1,28 +1,142 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="#E8F5E9"
+    android:padding="16dp">
 
     <LinearLayout
         android:orientation="vertical"
-        android:padding="16dp"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:padding="8dp">
 
-        <Spinner android:id="@+id/spinnerCategory" android:layout_width="match_parent" android:layout_height="wrap_content"/>
-        <EditText android:id="@+id/editLocation" android:hint="Location" android:layout_width="match_parent" android:layout_height="wrap_content"/>
-        <EditText android:id="@+id/editDateObserved" android:hint="Date Observed" android:focusable="false" android:layout_width="match_parent" android:layout_height="wrap_content"/>
-        <Spinner android:id="@+id/spinnerSeverity" android:layout_width="match_parent" android:layout_height="wrap_content"/>
-        <EditText android:id="@+id/editDescription" android:hint="Description" android:layout_width="match_parent" android:layout_height="wrap_content"/>
-        <EditText android:id="@+id/editName" android:hint="Your Name" android:enabled="false" android:layout_width="match_parent" android:layout_height="wrap_content"/>
-        <EditText android:id="@+id/editEmail" android:hint="Your Email" android:enabled="false" android:layout_width="match_parent" android:layout_height="wrap_content"/>
-        <ImageView android:id="@+id/imgPreview" android:layout_width="match_parent" android:layout_height="200dp" android:scaleType="centerCrop"/>
+        <!-- Category Spinner -->
+        <Spinner
+            android:id="@+id/spinnerCategory"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:prompt="@string/select_category"
+            android:backgroundTint="#2E7D32"
+            android:layout_marginBottom="12dp"
+            android:popupBackground="#FFFFFF"
+            android:theme="@style/SpinnerGreenText"/>
+
+        <!-- Location -->
+        <EditText
+            android:id="@+id/editLocation"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Location"
+            android:textColor="#2E7D32"
+            android:textColorHint="#2E7D32"
+            android:backgroundTint="#2E7D32"
+            android:layout_marginBottom="12dp"
+            android:padding="12dp"/>
+
+        <!-- Date Observed -->
+        <EditText
+            android:id="@+id/editDateObserved"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Date Observed"
+            android:focusable="false"
+            android:textColor="#2E7D32"
+            android:textColorHint="#2E7D32"
+            android:backgroundTint="#2E7D32"
+            android:layout_marginBottom="12dp"
+            android:padding="12dp"/>
+
+        <!-- Severity Spinner -->
+        <Spinner
+            android:id="@+id/spinnerSeverity"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:prompt="@string/select_severity"
+            android:backgroundTint="#2E7D32"
+            android:layout_marginBottom="12dp"
+            android:popupBackground="#FFFFFF"
+            android:theme="@style/SpinnerGreenText"/>
+
+        <!-- Description -->
+        <EditText
+            android:id="@+id/editDescription"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Description"
+            android:textColor="#2E7D32"
+            android:textColorHint="#2E7D32"
+            android:backgroundTint="#2E7D32"
+            android:layout_marginBottom="12dp"
+            android:padding="12dp"
+            android:gravity="top"/>
+
+        <!-- Your Name -->
+        <EditText
+            android:id="@+id/editName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Your Name"
+            android:enabled="false"
+            android:textColor="#2E7D32"
+            android:textColorHint="#2E7D32"
+            android:backgroundTint="#2E7D32"
+            android:layout_marginBottom="12dp"
+            android:padding="12dp"/>
+
+        <!-- Your Email -->
+        <EditText
+            android:id="@+id/editEmail"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Your Email"
+            android:enabled="false"
+            android:textColor="#2E7D32"
+            android:textColorHint="#2E7D32"
+            android:backgroundTint="#2E7D32"
+            android:layout_marginBottom="12dp"
+            android:padding="12dp"/>
+
+        <!-- Image Preview -->
+        <ImageView
+            android:id="@+id/imgPreview"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:scaleType="centerCrop"
+            android:layout_marginBottom="12dp"
+            android:background="#FFFFFF"
+            android:elevation="4dp"/>
+
+        <!-- Take Photo Button -->
         <Button
             android:id="@+id/btnTakePhoto"
             android:text="Take Photo"
-            android:layout_marginTop="10dp"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
-        <Button android:id="@+id/btnChooseImage" android:text="Choose Image" android:layout_width="match_parent" android:layout_height="wrap_content"/>
-        <Button android:id="@+id/btnSubmitReport" android:text="Submit Report" android:layout_width="match_parent" android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:backgroundTint="#2E7D32"
+            android:textColor="#FFFFFF"
+            android:padding="12dp"/>
+
+        <!-- Choose Image Button -->
+        <Button
+            android:id="@+id/btnChooseImage"
+            android:text="Choose Image"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:backgroundTint="#2E7D32"
+            android:textColor="#FFFFFF"
+            android:padding="12dp"/>
+
+        <!-- Submit Report Button -->
+        <Button
+            android:id="@+id/btnSubmitReport"
+            android:text="Submit Report"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:backgroundTint="#2E7D32"
+            android:textColor="#FFFFFF"
+            android:padding="14dp"/>
+
     </LinearLayout>
 </ScrollView>

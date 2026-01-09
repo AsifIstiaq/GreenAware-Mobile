@@ -15,6 +15,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.FileProvider;
 
+import com.google.android.material.datepicker.MaterialDatePicker;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 
@@ -23,9 +24,12 @@ import org.json.JSONObject;
 
 import java.io.File;
 import java.io.InputStream;
+import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
+import java.util.Locale;
 import java.util.Map;
 
 import okhttp3.Call;
@@ -83,29 +87,80 @@ public class AddReportActivity extends AppCompatActivity {
         btnSubmitReport.setOnClickListener(v -> submitReport());
     }
 
-    private void setupSpinners() {
-        String[] categories = {"Air pollution", "Noise pollution", "Water pollution"};
-        spinnerCategory.setAdapter(new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, categories));
+//    private void setupSpinners() {
+//        String[] categories = {"Select Category", "Air pollution", "Noise pollution", "Water pollution"};
+//        spinnerCategory.setAdapter(new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, categories));
+//
+//        String[] severities = {"Select Severity", "LOW", "MEDIUM", "HIGH"};
+//        spinnerSeverity.setAdapter(new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, severities));
+//    }
 
-        String[] severities = {"LOW", "MEDIUM", "HIGH"};
-        spinnerSeverity.setAdapter(new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, severities));
+    private void setupSpinners() {
+
+        String[] categories = {
+                "Select Category",
+                "Air pollution",
+                "Noise pollution",
+                "Water pollution"
+        };
+
+        ArrayAdapter<String> categoryAdapter = new ArrayAdapter<>(
+                this,
+                R.layout.spinner_item_green,
+                categories
+        );
+        categoryAdapter.setDropDownViewResource(R.layout.spinner_dropdown_item_green);
+        spinnerCategory.setAdapter(categoryAdapter);
+
+
+        String[] severities = {
+                "Select Severity",
+                "LOW",
+                "MEDIUM",
+                "HIGH"
+        };
+
+        ArrayAdapter<String> severityAdapter = new ArrayAdapter<>(
+                this,
+                R.layout.spinner_item_green,
+                severities
+        );
+        severityAdapter.setDropDownViewResource(R.layout.spinner_dropdown_item_green);
+        spinnerSeverity.setAdapter(severityAdapter);
     }
+
 
     private void setupUserInfo() {
         editName.setText(UserSession.getInstance().getName());
         editEmail.setText(UserSession.getInstance().getEmail());
     }
 
-    private void setupDatePicker() {
-        editDateObserved.setOnClickListener(v -> {
-            Calendar c = Calendar.getInstance();
-            new DatePickerDialog(this,
-                    (view, year, month, dayOfMonth) ->
-                            editDateObserved.setText((month + 1) + "/" + dayOfMonth + "/" + year),
-                    c.get(Calendar.YEAR), c.get(Calendar.MONTH), c.get(Calendar.DAY_OF_MONTH))
-                    .show();
+//    private void setupDatePicker() {
+//        editDateObserved.setOnClickListener(v -> {
+//            Calendar c = Calendar.getInstance();
+//            new DatePickerDialog(this,
+//                    (view, year, month, dayOfMonth) ->
+//                            editDateObserved.setText((month + 1) + "/" + dayOfMonth + "/" + year),
+//                    c.get(Calendar.YEAR), c.get(Calendar.MONTH), c.get(Calendar.DAY_OF_MONTH))
+//                    .show();
+//        });
+//    }
+private void setupDatePicker() {
+    editDateObserved.setOnClickListener(v -> {
+
+        MaterialDatePicker<Long> datePicker =
+                MaterialDatePicker.Builder.datePicker()
+                        .setTitleText("Select Date")
+                        .build();
+
+        datePicker.show(getSupportFragmentManager(), "DATE_PICKER");
+
+        datePicker.addOnPositiveButtonClickListener(selection -> {
+            SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy", Locale.getDefault());
+            editDateObserved.setText(sdf.format(new Date(selection)));
         });
-    }
+    });
+}
 
     private void chooseImage() {
         Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
@@ -153,6 +208,16 @@ public class AddReportActivity extends AppCompatActivity {
         String dateObserved = editDateObserved.getText().toString().trim();
         String severity = spinnerSeverity.getSelectedItem().toString();
         String description = editDescription.getText().toString().trim();
+
+        if (category.equals("Select Category")) {
+            Toast.makeText(this, "Please select category", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        if (severity.equals("Select Severity")) {
+            Toast.makeText(this, "Please select severity", Toast.LENGTH_SHORT).show();
+            return;
+        }
 
         if(category.isEmpty() || location.isEmpty() || dateObserved.isEmpty() || severity.isEmpty() || description.isEmpty()) {
             toast("Fill all fields");

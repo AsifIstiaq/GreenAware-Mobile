@@ -1,91 +1,183 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#E8F5E9"
     android:padding="16dp">
 
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="center_horizontal">
+        android:gravity="center_horizontal"
+        android:padding="8dp">
 
+        <!-- Category -->
         <TextView
             android:text="Category:"
+            android:textColor="#2E7D32"
+            android:textStyle="bold"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"/>
         <TextView
             android:id="@+id/tvCategory"
+            android:textColor="#2E7D32"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="12dp"
+            android:padding="8dp"
+            android:background="#E8F5E9"
+            android:textAlignment="center"/>
 
+        <!-- Location -->
         <TextView
             android:text="Location:"
+            android:textColor="#2E7D32"
+            android:textStyle="bold"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
-
+            android:layout_height="wrap_content"/>
         <TextView
             android:id="@+id/tvLocation"
+            android:textColor="#2E7D32"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="12dp"
+            android:padding="8dp"
+            android:background="#E8F5E9"
+            android:textAlignment="center"/>
 
+        <!-- Date Reported -->
         <TextView
             android:text="Date Reported:"
+            android:textColor="#2E7D32"
+            android:textStyle="bold"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
-
+            android:layout_height="wrap_content"/>
         <TextView
             android:id="@+id/tvDateReported"
+            android:textColor="#2E7D32"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="12dp"
+            android:padding="8dp"
+            android:background="#E8F5E9"
+            android:textAlignment="center"/>
 
+        <!-- Severity -->
         <TextView
             android:text="Severity:"
+            android:textColor="#2E7D32"
+            android:textStyle="bold"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
-
+            android:layout_height="wrap_content"/>
         <TextView
             android:id="@+id/tvSeverity"
+            android:textColor="#2E7D32"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="12dp"
+            android:textStyle="bold"
+            android:padding="8dp"
+            android:background="#E8F5E9"
+            android:textAlignment="center"/>
 
+        <!-- Description -->
         <TextView
             android:text="Description:"
+            android:textColor="#2E7D32"
+            android:textStyle="bold"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"/>
         <TextView
             android:id="@+id/tvDescription"
+            android:textColor="#2E7D32"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="12dp"
+            android:padding="8dp"
+            android:minLines="3"
+            android:background="#E8F5E9"
+            android:textAlignment="center"/>
 
+        <!-- Status -->
         <TextView
             android:text="Status:"
+            android:textColor="#2E7D32"
+            android:textStyle="bold"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
-
+            android:layout_height="wrap_content"
+            android:textAlignment="center"/>
         <TextView
             android:id="@+id/tvStatus"
+            android:textColor="#2E7D32"
+            android:textStyle="bold"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            android:padding="8dp"
+            android:background="#E8F5E9"
+            android:textAlignment="center"/>
 
+        <!-- Images -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:gravity="center"
-            android:layout_marginTop="16dp">
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="24dp"
+            android:weightSum="2">
 
-            <ImageView
-                android:id="@+id/imgUserPhoto"
-                android:layout_width="150dp"
-                android:layout_height="150dp"
-                android:layout_marginEnd="8dp"
-                android:scaleType="centerCrop"/>
+            <!-- Before Image -->
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical"
+                android:gravity="center">
 
-            <ImageView
-                android:id="@+id/imgFinalPhoto"
-                android:layout_width="150dp"
-                android:layout_height="150dp"
-                android:scaleType="centerCrop"/>
+                <ImageView
+                    android:id="@+id/imgUserPhoto"
+                    android:layout_width="match_parent"
+                    android:layout_height="150dp"
+                    android:scaleType="centerCrop"
+                    android:background="#FFFFFF"
+                    android:elevation="4dp"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Before"
+                    android:textColor="#555555"
+                    android:textStyle="bold"
+                    android:layout_marginTop="8dp"/>
+            </LinearLayout>
+
+            <!-- After Image -->
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical"
+                android:gravity="center"
+                android:layout_marginStart="8dp">
+
+                <ImageView
+                    android:id="@+id/imgFinalPhoto"
+                    android:layout_width="match_parent"
+                    android:layout_height="150dp"
+                    android:scaleType="centerCrop"
+                    android:background="#FFFFFF"
+                    android:elevation="4dp"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="After"
+                    android:textColor="#2E7D32"
+                    android:textStyle="bold"
+                    android:layout_marginTop="8dp"/>
+            </LinearLayout>
         </LinearLayout>
     </LinearLayout>
 </ScrollView>

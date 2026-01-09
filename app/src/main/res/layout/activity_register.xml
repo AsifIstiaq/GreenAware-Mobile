@@ -2,6 +2,7 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#E8F5E9"
     android:padding="24dp">
 
     <LinearLayout
@@ -16,7 +17,11 @@
             android:layout_height="wrap_content"
             android:hint="Full Name"
             android:inputType="textPersonName"
-            android:layout_marginBottom="16dp"/>
+            android:padding="14dp"
+            android:layout_marginBottom="18dp"
+            android:backgroundTint="#2E7D32"
+            android:textColor="#1B5E20"
+            android:textColorHint="#4CAF50"/>
 
         <!-- Username -->
         <EditText
@@ -25,7 +30,11 @@
             android:layout_height="wrap_content"
             android:hint="Username"
             android:inputType="text"
-            android:layout_marginBottom="16dp"/>
+            android:padding="14dp"
+            android:layout_marginBottom="18dp"
+            android:backgroundTint="#2E7D32"
+            android:textColor="#1B5E20"
+            android:textColorHint="#4CAF50"/>
 
         <!-- Email -->
         <EditText
@@ -34,7 +43,11 @@
             android:layout_height="wrap_content"
             android:hint="Email"
             android:inputType="textEmailAddress"
-            android:layout_marginBottom="16dp"/>
+            android:padding="14dp"
+            android:layout_marginBottom="18dp"
+            android:backgroundTint="#2E7D32"
+            android:textColor="#1B5E20"
+            android:textColorHint="#4CAF50"/>
 
         <!-- Phone -->
         <EditText
@@ -43,7 +56,11 @@
             android:layout_height="wrap_content"
             android:hint="Phone Number"
             android:inputType="phone"
-            android:layout_marginBottom="16dp"/>
+            android:padding="14dp"
+            android:layout_marginBottom="18dp"
+            android:backgroundTint="#2E7D32"
+            android:textColor="#1B5E20"
+            android:textColorHint="#4CAF50"/>
 
         <!-- Password -->
         <EditText
@@ -52,7 +69,11 @@
             android:layout_height="wrap_content"
             android:hint="Password"
             android:inputType="textPassword"
-            android:layout_marginBottom="16dp"/>
+            android:padding="14dp"
+            android:layout_marginBottom="18dp"
+            android:backgroundTint="#2E7D32"
+            android:textColor="#1B5E20"
+            android:textColorHint="#4CAF50"/>
 
         <!-- Role Selection -->
         <RadioGroup
@@ -60,36 +81,45 @@
             android:orientation="horizontal"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="16dp">
+            android:layout_marginBottom="18dp">
 
             <RadioButton
                 android:id="@+id/radioUser"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="User"
-                android:checked="true"/>
+                android:checked="true"
+                android:textColor="#2E7D32"
+                android:paddingEnd="16dp"/>
 
             <RadioButton
                 android:id="@+id/radioWorker"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Worker"/>
+                android:text="Worker"
+                android:textColor="#2E7D32"/>
         </RadioGroup>
 
         <!-- Specialization Spinner (for Worker) -->
         <Spinner
             android:id="@+id/spinnerSpecialization"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="48dp"
             android:prompt="@string/select_specialization"
-            android:layout_marginBottom="16dp"/>
+            android:layout_marginBottom="24dp"
+            android:backgroundTint="#2E7D32"
+            android:popupBackground="#FFFFFF"
+            android:theme="@style/GreenSpinnerTheme"/>
 
         <!-- Register Button -->
         <Button
             android:id="@+id/btnRegister"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Register"/>
+            android:text="Register"
+            android:padding="14dp"
+            android:backgroundTint="#2E7D32"
+            android:textColor="#FFFFFF"/>
 
     </LinearLayout>
 </ScrollView>

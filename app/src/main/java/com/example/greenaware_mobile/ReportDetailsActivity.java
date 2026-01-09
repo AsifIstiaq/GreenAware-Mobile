@@ -2,6 +2,7 @@ package com.example.greenaware_mobile;
 
 import android.Manifest;
 import android.content.pm.PackageManager;
+import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.widget.ImageView;
@@ -16,6 +17,8 @@ import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.ListenerRegistration;
+
+import java.util.Objects;
 
 public class ReportDetailsActivity extends AppCompatActivity {
 
@@ -119,9 +122,43 @@ public class ReportDetailsActivity extends AppCompatActivity {
         tvCategory.setText(doc.getString("category_name"));
         tvLocation.setText(doc.getString("location"));
         tvDateReported.setText(doc.getString("date_reported"));
-        tvSeverity.setText(doc.getString("severity"));
+        String severity = doc.getString("severity");
+        tvSeverity.setText(severity);
         tvDescription.setText(doc.getString("description"));
-        tvStatus.setText(doc.getString("status"));
+        String status = doc.getString("status");
+        tvStatus.setText(status);
+
+        if (severity != null) {
+            switch (severity) {
+                case "LOW":
+                    tvSeverity.setTextColor(Color.parseColor("#2E7D32"));
+                    break;
+                case "MEDIUM":
+                    tvSeverity.setTextColor(Color.parseColor("#FFA726"));
+                    break;
+                case "HIGH":
+                    tvSeverity.setTextColor(Color.parseColor("#D32F2F"));
+                    break;
+                default:
+                    tvSeverity.setTextColor(Color.parseColor("#388E3C"));
+                    break;
+            }
+        }
+
+        switch (Objects.requireNonNull(status)) {
+            case "PENDING":
+                tvStatus.setTextColor(Color.parseColor("#FFA726"));
+                break;
+            case "IN_PROGRESS":
+                tvStatus.setTextColor(Color.parseColor("#29B6F6"));
+                break;
+            case "RESOLVED":
+                tvStatus.setTextColor(Color.parseColor("#2E7D32"));
+                break;
+            default:
+                tvStatus.setTextColor(Color.parseColor("#388E3C"));
+                break;
+        }
 
         String userPhoto = doc.getString("image_path");
         if (userPhoto != null && !userPhoto.isEmpty()) {

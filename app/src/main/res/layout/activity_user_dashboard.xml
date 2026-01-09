@@ -1,20 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
     android:padding="16dp"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="#E8F5E9">
 
-    <Button
-        android:id="@+id/btnAddReport"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Add Report"/>
-
+    <!-- RecyclerView for Reports -->
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerReports"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
-        android:paddingTop="8dp"/>
+        android:paddingTop="8dp"
+        android:clipToPadding="false"
+        android:scrollbars="vertical"
+        android:background="#E8F5E9"
+        android:padding="8dp"
+        android:elevation="2dp"/>
+
+    <!-- Add Report Button -->
+    <Button
+        android:id="@+id/btnAddReport"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Add Report"
+        android:padding="14dp"
+        android:layout_marginTop="16dp"
+        android:backgroundTint="#2E7D32"
+        android:textColor="#FFFFFF"
+        android:elevation="4dp"/>
 
 </LinearLayout>

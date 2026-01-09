@@ -1,34 +1,50 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="#E8F5E9"
+    android:padding="16dp">
 
     <LinearLayout
         android:orientation="vertical"
-        android:padding="16dp"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:padding="8dp">
 
+        <!-- Title -->
         <TextView
             android:text="Submit Work Progress"
             android:textSize="20sp"
             android:textStyle="bold"
-            android:layout_marginBottom="12dp"
+            android:textColor="#2E7D32"
+            android:layout_marginBottom="16dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
 
+        <!-- Current Status -->
         <TextView
             android:text="Current Status"
+            android:textStyle="bold"
+            android:textColor="#2E7D32"
+            android:layout_marginBottom="6dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
 
         <Spinner
             android:id="@+id/spinnerStatus"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+            android:layout_height="48dp"
+            android:backgroundTint="#2E7D32"
+            android:popupBackground="#FFFFFF"
+            android:layout_marginBottom="16dp"
+            android:spinnerMode="dropdown"
+            android:prompt="@string/select_status"/>
 
+        <!-- Work Description / Observation -->
         <TextView
             android:text="Work Description / Observation"
-            android:layout_marginTop="10dp"
+            android:textStyle="bold"
+            android:textColor="#2E7D32"
+            android:layout_marginBottom="6dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
 
@@ -36,36 +52,56 @@
             android:id="@+id/editDescription"
             android:minLines="3"
             android:gravity="top"
+            android:backgroundTint="#2E7D32"
+            android:textColor="#2E7D32"
+            android:textColorHint="#2E7D32"
+            android:padding="12dp"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"/>
 
-        <Button
-            android:id="@+id/btnTakePhoto"
-            android:text="Take Photo"
-            android:layout_marginTop="10dp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
-
-        <Button
-            android:id="@+id/btnChooseImage"
-            android:text="Choose Photo"
-            android:layout_marginTop="10dp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
-
+        <!-- Image Preview -->
         <ImageView
             android:id="@+id/imgPreview"
             android:layout_width="match_parent"
             android:layout_height="200dp"
             android:scaleType="centerCrop"
-            android:layout_marginTop="8dp"/>
+            android:background="#FFFFFF"
+            android:elevation="4dp"
+            android:layout_marginBottom="16dp"/>
 
+        <!-- Take Photo Button -->
+        <Button
+            android:id="@+id/btnTakePhoto"
+            android:text="Take Photo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:backgroundTint="#2E7D32"
+            android:textColor="#FFFFFF"
+            android:padding="12dp"/>
+
+        <!-- Choose Photo Button -->
+        <Button
+            android:id="@+id/btnChooseImage"
+            android:text="Choose Photo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="12dp"
+            android:backgroundTint="#2E7D32"
+            android:textColor="#FFFFFF"
+            android:padding="12dp"/>
+
+        <!-- Submit Progress Button -->
         <Button
             android:id="@+id/btnSubmitProgress"
             android:text="Submit Progress"
-            android:layout_marginTop="20dp"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content"
+            android:backgroundTint="#2E7D32"
+            android:textColor="#FFFFFF"
+            android:padding="14dp"
+            android:layout_marginBottom="12dp"/>
 
     </LinearLayout>
 </ScrollView>

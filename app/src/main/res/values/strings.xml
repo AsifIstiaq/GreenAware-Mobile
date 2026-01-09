@@ -3,4 +3,5 @@
     <string name="select_specialization">Select Specialization</string>
     <string name="select_category">Select Category</string>
     <string name="select_severity">Select Severity</string>
+    <string name="select_status">Select Status</string>
 </resources>

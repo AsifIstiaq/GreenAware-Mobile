@@ -2,6 +2,7 @@ package com.example.greenaware_mobile;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -38,7 +39,23 @@ public class WorkerActionAdapter extends RecyclerView.Adapter<WorkerActionAdapte
         holder.txtLocation.setText(action.getLocation());
         holder.txtDescription.setText(action.getAction_note());
         holder.txtDeadline.setText("Deadline: " + action.getDeadline());
-        holder.txtStatus.setText(action.getStatus());
+        String status = action.getStatus();
+        holder.txtStatus.setText(status);
+
+        switch (status) {
+            case "PENDING":
+                holder.txtStatus.setTextColor(Color.parseColor("#FFA726"));
+                break;
+            case "IN_PROGRESS":
+                holder.txtStatus.setTextColor(Color.parseColor("#29B6F6"));
+                break;
+            case "RESOLVED":
+                holder.txtStatus.setTextColor(Color.parseColor("#2E7D32"));
+                break;
+            default:
+                holder.txtStatus.setTextColor(Color.parseColor("#388E3C"));
+                break;
+        }
 
         holder.itemView.setOnClickListener(v -> {
             Intent intent = new Intent(context, ActionDetailsActivity.class);

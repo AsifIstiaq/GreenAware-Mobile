@@ -41,16 +41,16 @@ public class UserReportAdapter extends RecyclerView.Adapter<UserReportAdapter.Re
 
         switch (status.toUpperCase()) {
             case "PENDING":
-                holder.tvStatus.setTextColor(android.graphics.Color.parseColor("#FFA726")); // orange
+                holder.tvStatus.setTextColor(android.graphics.Color.parseColor("#FFA726"));
                 break;
             case "IN_PROGRESS":
-                holder.tvStatus.setTextColor(android.graphics.Color.parseColor("#29B6F6")); // blue
+                holder.tvStatus.setTextColor(android.graphics.Color.parseColor("#29B6F6"));
                 break;
             case "RESOLVED":
-                holder.tvStatus.setTextColor(android.graphics.Color.parseColor("#2E7D32")); // green
+                holder.tvStatus.setTextColor(android.graphics.Color.parseColor("#2E7D32"));
                 break;
             default:
-                holder.tvStatus.setTextColor(android.graphics.Color.parseColor("#388E3C")); // default dark green
+                holder.tvStatus.setTextColor(android.graphics.Color.parseColor("#388E3C"));
                 break;
         }
 

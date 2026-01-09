@@ -1,15 +1,20 @@
 package com.example.greenaware_mobile;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
+import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -74,13 +79,39 @@ public class SubmitProgressActivity extends AppCompatActivity {
         btnSubmit.setOnClickListener(v -> submitProgress());
     }
 
-    private void setupSpinner() {
-        String[] statuses = {"PENDING", "IN_PROGRESS", "COMPLETED"};
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(
-                this, android.R.layout.simple_spinner_item, statuses);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinnerStatus.setAdapter(adapter);
-    }
+//    private void setupSpinner() {
+//        String[] statuses = {"PENDING", "IN_PROGRESS", "COMPLETED"};
+//        ArrayAdapter<String> adapter = new ArrayAdapter<>(
+//                this, android.R.layout.simple_spinner_item, statuses);
+//        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+//        spinnerStatus.setAdapter(adapter);
+//    }
+private void setupSpinner() {
+    String[] statuses = {"PENDING", "IN_PROGRESS", "COMPLETED"};
+
+    ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, statuses) {
+        @NonNull
+        @Override
+        public View getView(int position, View convertView, ViewGroup parent) {
+            TextView view = (TextView) super.getView(position, convertView, parent);
+            view.setTextColor(Color.parseColor("#2E7D32"));
+            return view;
+        }
+
+        @Override
+        public View getDropDownView(int position, View convertView, ViewGroup parent) {
+            TextView view = (TextView) super.getDropDownView(position, convertView, parent);
+            view.setTextColor(Color.parseColor("#2E7D32"));
+            view.setPadding(24, 24, 24, 24);
+            return view;
+        }
+    };
+
+    adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+    spinnerStatus.setAdapter(adapter);
+    spinnerStatus.setPrompt("Select Status");
+}
+
 
     private void chooseImage() {
         Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
@@ -218,7 +249,7 @@ public class SubmitProgressActivity extends AppCompatActivity {
 
                     Map<String, Object> progress = new HashMap<>();
                     progress.put("action_id", actionId);
-                    progress.put("location", location); // ✅ IMPORTANT
+                    progress.put("location", location);
                     progress.put("description", description);
                     progress.put("status", status);
                     progress.put("photo_path", photoUrl);

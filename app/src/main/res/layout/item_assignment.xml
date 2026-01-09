@@ -3,42 +3,50 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="8dp"
-    app:cardElevation="4dp"
-    app:cardCornerRadius="8dp">
+    android:layout_margin="10dp"
+    app:cardElevation="6dp"
+    app:cardCornerRadius="12dp"
+    app:cardBackgroundColor="#FFFFFF">
 
     <LinearLayout
-        android:padding="10dp"
+        android:padding="16dp"
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
+        <!-- Location -->
         <TextView
             android:id="@+id/txtLocation"
             android:textStyle="bold"
             android:textSize="16sp"
+            android:textColor="#2E7D32"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
 
+        <!-- Description -->
         <TextView
             android:id="@+id/txtDescription"
+            android:textColor="#555555"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="4dp"/>
+            android:layout_marginTop="6dp"/>
 
+        <!-- Deadline -->
         <TextView
             android:id="@+id/txtDeadline"
             android:textColor="#D32F2F"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="4dp"/>
+            android:layout_marginTop="6dp"
+            android:textStyle="bold"/>
 
+        <!-- Status -->
         <TextView
             android:id="@+id/txtStatus"
             android:textStyle="bold"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="4dp"/>
+            android:layout_marginTop="6dp"/>
 
     </LinearLayout>
 </androidx.cardview.widget.CardView>

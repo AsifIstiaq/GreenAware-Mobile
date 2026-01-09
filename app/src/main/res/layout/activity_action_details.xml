@@ -1,71 +1,112 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="#E8F5E9"
+    android:padding="16dp">
 
     <LinearLayout
         android:orientation="vertical"
-        android:padding="16dp"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:padding="8dp">
 
+        <!-- Title -->
         <TextView
             android:text="Action Details"
             android:textSize="20sp"
             android:textStyle="bold"
-            android:layout_marginBottom="12dp"
+            android:textColor="#2E7D32"
+            android:layout_marginBottom="16dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
 
+        <!-- Location Label -->
         <TextView
             android:text="Location"
             android:textStyle="bold"
+            android:textColor="#2E7D32"
+            android:layout_marginTop="8dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
 
+        <!-- Location Value -->
         <TextView
             android:id="@+id/txtLocation"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+            android:textColor="#555555"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="8dp"
+            android:background="#E8F5E9"
+            android:layout_marginTop="4dp"
+            android:layout_marginBottom="12dp"/>
 
+        <!-- Work Description Label -->
         <TextView
             android:text="Work Description"
             android:textStyle="bold"
+            android:textColor="#2E7D32"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
 
+        <!-- Work Description Value -->
         <TextView
             android:id="@+id/txtDescription"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+            android:textColor="#555555"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="8dp"
+            android:background="#E8F5E9"
+            android:layout_marginTop="4dp"
+            android:layout_marginBottom="12dp"/>
 
+        <!-- Deadline Label -->
         <TextView
             android:text="Deadline"
             android:textStyle="bold"
+            android:textColor="#2E7D32"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
 
+        <!-- Deadline Value -->
         <TextView
             android:id="@+id/txtDeadline"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+            android:textColor="#D32F2F"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="8dp"
+            android:background="#E8F5E9"
+            android:layout_marginTop="4dp"
+            android:layout_marginBottom="12dp"/>
 
+        <!-- Status Label -->
         <TextView
             android:text="Status"
             android:textStyle="bold"
+            android:textColor="#2E7D32"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
 
+        <!-- Status Value -->
         <TextView
             android:id="@+id/txtStatus"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+            android:textStyle="bold"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="8dp"
+            android:background="#E8F5E9"
+            android:layout_marginTop="4dp"
+            android:layout_marginBottom="16dp"/>
 
+        <!-- Submit Progress Button -->
         <Button
             android:id="@+id/btnSubmitProgress"
             android:text="Submit Progress"
             android:layout_marginTop="20dp"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content"
+            android:backgroundTint="#2E7D32"
+            android:textColor="#FFFFFF"
+            android:padding="14dp"/>
 
     </LinearLayout>
 </ScrollView>

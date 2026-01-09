@@ -1,6 +1,7 @@
 package com.example.greenaware_mobile;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.TextView;
@@ -72,6 +73,22 @@ public class ActionDetailsActivity extends AppCompatActivity {
         txtLocation.setText(doc.getString("location"));
         txtDescription.setText(doc.getString("action_note"));
         txtDeadline.setText(doc.getString("deadline"));
-        txtStatus.setText(doc.getString("status"));
+        String status = doc.getString("status");
+        txtStatus.setText(status);
+
+        switch (status) {
+            case "PENDING":
+                txtStatus.setTextColor(Color.parseColor("#FFA726"));
+                break;
+            case "IN_PROGRESS":
+                txtStatus.setTextColor(Color.parseColor("#29B6F6"));
+                break;
+            case "RESOLVED":
+                txtStatus.setTextColor(Color.parseColor("#2E7D32"));
+                break;
+            default:
+                txtStatus.setTextColor(Color.parseColor("#388E3C"));
+                break;
+        }
     }
 }

@@ -11,6 +11,16 @@
         android:gravity="center_horizontal"
         android:padding="8dp">
 
+        <TextView
+            android:text="Report Details"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:textColor="#555555"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginBottom="12dp"/>
+
         <!-- Category -->
         <TextView
             android:text="Category:"

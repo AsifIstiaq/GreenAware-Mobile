@@ -4,6 +4,7 @@
     <uses-feature
         android:name="android.hardware.camera"
         android:required="false" />
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS"/>
     <application
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
@@ -14,22 +15,22 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.GreenAwareMobile">
         <activity
-            android:name=".SubmitProgressActivity"
+            android:name=".Activities.SubmitProgressActivity"
             android:exported="false" />
         <activity
-            android:name=".ActionDetailsActivity"
+            android:name=".Activities.ActionDetailsActivity"
             android:exported="false" />
         <activity
-            android:name=".WorkerDashboardActivity"
+            android:name=".Activities.WorkerDashboardActivity"
             android:exported="false" />
         <activity
-            android:name=".UserDashboardActivity"
+            android:name=".Activities.UserDashboardActivity"
             android:exported="false" />
         <activity
-            android:name=".RegisterActivity"
+            android:name=".Activities.RegisterActivity"
             android:exported="false" />
         <activity
-            android:name=".LoginActivity"
+            android:name=".Activities.LoginActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -37,8 +38,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".ReportDetailsActivity" />
-        <activity android:name=".AddReportActivity" />
+        <activity android:name=".Activities.ReportDetailsActivity" />
+        <activity android:name=".Activities.AddReportActivity" />
         <provider
             android:name="androidx.core.content.FileProvider"
             android:authorities="${applicationId}.fileprovider"

@@ -1,4 +1,4 @@
-package com.example.greenaware_mobile;
+package com.example.greenaware_mobile.Activities;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -11,6 +11,12 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.greenaware_mobile.Models.ActionModel;
+import com.example.greenaware_mobile.Utils.DeadlineUtils;
+import com.example.greenaware_mobile.Helpers.NotificationHelper;
+import com.example.greenaware_mobile.R;
+import com.example.greenaware_mobile.Adapters.WorkerActionAdapter;
+import com.example.greenaware_mobile.Session.WorkerSession;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;

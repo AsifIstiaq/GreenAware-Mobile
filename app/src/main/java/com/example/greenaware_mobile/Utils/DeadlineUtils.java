@@ -1,4 +1,4 @@
-package com.example.greenaware_mobile;
+package com.example.greenaware_mobile.Utils;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;

@@ -1,4 +1,4 @@
-package com.example.greenaware_mobile;
+package com.example.greenaware_mobile.Activities;
 
 import android.content.Intent;
 import android.os.Build;
@@ -15,6 +15,8 @@ import android.widget.Toast;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.greenaware_mobile.Utils.HashUtils;
+import com.example.greenaware_mobile.R;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.time.Instant;

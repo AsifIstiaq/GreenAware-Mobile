@@ -1,4 +1,4 @@
-package com.example.greenaware_mobile;
+package com.example.greenaware_mobile.Adapters;
 
 import android.content.Context;
 import android.content.Intent;
@@ -10,6 +10,10 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.example.greenaware_mobile.Activities.ActionDetailsActivity;
+import com.example.greenaware_mobile.Models.ActionModel;
+import com.example.greenaware_mobile.R;
 
 import java.util.List;
 

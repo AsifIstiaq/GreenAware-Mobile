@@ -1,4 +1,4 @@
-package com.example.greenaware_mobile;
+package com.example.greenaware_mobile.Activities;
 
 import android.content.Intent;
 import android.graphics.Color;
@@ -18,6 +18,8 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.greenaware_mobile.R;
+import com.example.greenaware_mobile.Session.WorkerSession;
 import com.google.firebase.firestore.FirebaseFirestore;
 import org.json.JSONObject;
 

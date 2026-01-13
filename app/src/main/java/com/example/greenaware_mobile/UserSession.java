@@ -24,4 +24,10 @@ public class UserSession {
     public String getUserId() { return userId; }
     public String getName() { return name; }
     public String getEmail() { return email; }
+
+    public void clearSession() {
+        this.userId = null;
+        this.name = null;
+        this.email = null;
+    }
 }

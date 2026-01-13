@@ -35,4 +35,14 @@ public class WorkerSession {
     public String getPhone() {
         return phone;
     }
+
+    public void clearSession() {
+        this.workerId = null;
+        this.name = null;
+        this.phone = null;
+        this.email = null;
+
+        instance = null;
+    }
+
 }

@@ -93,7 +93,14 @@ public class AddReportActivity extends AppCompatActivity {
                 "Select Category",
                 "Air pollution",
                 "Noise pollution",
-                "Water pollution"
+                "Water pollution",
+                "Soil pollution",
+                "Plastic pollution",
+                "Industrial waste",
+                "Deforestation",
+                "E-waste",
+                "Chemical spills",
+                "Other"
         };
 
         ArrayAdapter<String> categoryAdapter = new ArrayAdapter<>(

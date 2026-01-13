@@ -6,6 +6,31 @@
     android:layout_height="match_parent"
     android:background="#E8F5E9">
 
+    <!-- Title + Logo -->
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginBottom="32dp"
+        android:gravity="center_vertical">
+
+        <ImageView
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:src="@mipmap/ic_launcher"
+            android:contentDescription="App Logo"
+            android:layout_marginEnd="12dp"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="GreenAware"
+            android:textColor="#2E7D32"
+            android:textSize="28sp"
+            android:textStyle="bold"/>
+    </LinearLayout>
+
     <EditText
         android:id="@+id/editUsername"
         android:layout_width="match_parent"

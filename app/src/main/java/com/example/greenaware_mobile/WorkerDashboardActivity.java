@@ -1,7 +1,10 @@
 package com.example.greenaware_mobile;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.Button;
+import android.widget.TextView;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -27,6 +30,9 @@ public class WorkerDashboardActivity extends AppCompatActivity {
 
     String workerId;
 
+    private TextView tvTotalAssignments, tvPendingAssignments, tvInProgressAssignments, tvCompletedAssignments;
+    private Button btnLogout;
+
     FirebaseFirestore db;
     private Map<String, String> lastStatusMap = new HashMap<>();
 
@@ -34,6 +40,18 @@ public class WorkerDashboardActivity extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_worker_dashboard);
+
+        tvTotalAssignments = findViewById(R.id.tvTotalAssignments);
+        tvPendingAssignments = findViewById(R.id.tvPendingAssignments);
+        tvInProgressAssignments = findViewById(R.id.tvInProgressAssignments);
+        tvCompletedAssignments = findViewById(R.id.tvCompletedAssignments);
+        btnLogout = findViewById(R.id.btnLogout);
+
+        btnLogout.setOnClickListener(v -> {
+            WorkerSession.getInstance().clearSession();
+            startActivity(new Intent(WorkerDashboardActivity.this, LoginActivity.class));
+            finish();
+        });
 
         workerId = WorkerSession.getInstance().getWorkerId();
         Log.d(TAG, "Worker ID: " + workerId);
@@ -49,6 +67,24 @@ public class WorkerDashboardActivity extends AppCompatActivity {
         deadlineNotification(workerId);
 
         loadAssignments();
+    }
+
+    private void updateStats() {
+        int total = actionList.size();
+        int pending = 0, inProgress = 0, completed = 0;
+
+        for (ActionModel action : actionList) {
+            switch (action.getStatus()) {
+                case "PENDING": pending++; break;
+                case "IN_PROGRESS": inProgress++; break;
+                case "COMPLETED": completed++; break;
+            }
+        }
+
+        tvTotalAssignments.setText(String.valueOf(total));
+        tvPendingAssignments.setText(String.valueOf(pending));
+        tvInProgressAssignments.setText(String.valueOf(inProgress));
+        tvCompletedAssignments.setText(String.valueOf(completed));
     }
 
     private void deadlineNotification(String workerId) {
@@ -133,6 +169,7 @@ public class WorkerDashboardActivity extends AppCompatActivity {
                     }
 
                     adapter.notifyDataSetChanged();
+                    updateStats();
                     Log.d(TAG, "Total assignments loaded: " + actionList.size());
                 });
     }

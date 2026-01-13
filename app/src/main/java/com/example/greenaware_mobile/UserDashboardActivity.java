@@ -3,6 +3,7 @@ package com.example.greenaware_mobile;
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -21,9 +22,11 @@ import java.util.Map;
 public class UserDashboardActivity extends AppCompatActivity {
 
     private RecyclerView recyclerView;
-    private Button btnAddReport;
+    private Button btnAddReport, btnLogout;
     private UserReportAdapter adapter;
     private List<ReportModel> reportList;
+
+    private TextView tvTotalReports, tvPending, tvInProgress, tvResolved;
 
     private FirebaseFirestore db;
     private Map<String, String> lastStatusMap = new HashMap<>();
@@ -35,6 +38,12 @@ public class UserDashboardActivity extends AppCompatActivity {
 
         recyclerView = findViewById(R.id.recyclerReports);
         btnAddReport = findViewById(R.id.btnAddReport);
+        btnLogout = findViewById(R.id.btnLogout);
+
+        tvTotalReports = findViewById(R.id.tvTotalReports);
+        tvPending = findViewById(R.id.tvPending);
+        tvInProgress = findViewById(R.id.tvInProgress);
+        tvResolved = findViewById(R.id.tvResolved);
 
         db = FirebaseFirestore.getInstance();
         String userId = UserSession.getInstance().getUserId();
@@ -84,6 +93,12 @@ public class UserDashboardActivity extends AppCompatActivity {
             startActivity(new Intent(UserDashboardActivity.this, AddReportActivity.class));
         });
 
+        btnLogout.setOnClickListener(v -> {
+            UserSession.getInstance().clearSession();
+            startActivity(new Intent(UserDashboardActivity.this, LoginActivity.class));
+            finish();
+        });
+
         fetchReports();
     }
 
@@ -99,6 +114,8 @@ public class UserDashboardActivity extends AppCompatActivity {
 
     private void onReportsFetched(QuerySnapshot snapshots) {
         reportList.clear();
+
+        int pending = 0, inProgress = 0, resolved = 0;
 
         for (DocumentSnapshot doc : snapshots) {
 
@@ -116,6 +133,10 @@ public class UserDashboardActivity extends AppCompatActivity {
                     ? doc.getString("status")
                     : "PENDING";
 
+            if ("PENDING".equals(status)) pending++;
+            else if ("IN_PROGRESS".equals(status)) inProgress++;
+            else if ("RESOLVED".equals(status)) resolved++;
+
             ReportModel model = new ReportModel(
                     docId,
                     category,
@@ -125,6 +146,11 @@ public class UserDashboardActivity extends AppCompatActivity {
 
             reportList.add(model);
         }
+
+        tvTotalReports.setText(String.valueOf(reportList.size()));
+        tvPending.setText(String.valueOf(pending));
+        tvInProgress.setText(String.valueOf(inProgress));
+        tvResolved.setText(String.valueOf(resolved));
 
         adapter.notifyDataSetChanged();
     }
